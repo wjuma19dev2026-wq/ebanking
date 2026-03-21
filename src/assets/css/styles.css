@@ -1,0 +1,28 @@
+#bank__current-balance {
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.current-balance__amount {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.current-balance__amount .amount {
+	font-size: 2.8rem;
+	font-weight: 700;
+}
+
+button {
+	width: 100px;
+}
+
+#action-box {
+	margin-top: 15px;
+}
+
+#action-box:nth-of-type(1) {
+	margin-top: 0;
+}

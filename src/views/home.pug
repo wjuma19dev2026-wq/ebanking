@@ -1,0 +1,47 @@
+extends ../layout.pug
+include movement.pug
+include actions.pug
+
+
+block content
+	include ./current-balance.pug
+
+	main.container
+		.row
+			.col-6
+				div(class="card text-bg-light")
+					.card-body
+						ul.list-group.list-group-flush
+							+movement({
+								qty: 2,
+								type: 'deposit'
+							}, '3 days ago', 4000)
+			.col-6
+				.row
+					+actions({
+						color: 'warning', 
+						title: 'transfer money',
+						cajas: [
+							{ type: 'text', name: 'transfer-to', label: 'transferto', id: 'transfer-to', placeholder: 'Transfer to' },
+							{ type: 'numer', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
+						],
+						icon: 'arrow-right'
+					})
+					+actions({
+						color: 'success', 
+						title: 'request loan',
+						cajas: [
+							{ type: 'number', name: 'loan-amount', label: 'amount', id: 'loan-amount', placeholder: 'Your loan amount' }
+						],
+						icon: 'arrow-right'
+					})
+					+actions({
+						color: 'danger', 
+						title: 'cancel product',
+						cajas: [
+							{ type: 'number', name: 'loan-amount', label: 'amount', id: 'loan-amount', placeholder: 'Your loan amount' },
+							{ type: 'numer', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
+						],
+						icon: 'arrow-right'
+					})
+					

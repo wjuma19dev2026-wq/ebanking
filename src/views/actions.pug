@@ -1,0 +1,13 @@
+mixin actions({ color, title, cajas, icon })
+	.col-12#action-box
+		div(class="card text-bg-"+color)
+			.card-body.px-4
+				.card-title.text-capitalize= title
+				.d-flex.gap-2.mt-3
+					each caja in cajas
+						div
+							input(type=caja.type class="form-control text-bg-light border border-0" placeholder=caja.placeholder name=caja.name id=caja.id)
+							label(for="transferto" class="text-capitalize")= caja.label
+						div
+					button.btn.btn-light.align-self-baseline 
+						i(class='bi bi-'+icon)
