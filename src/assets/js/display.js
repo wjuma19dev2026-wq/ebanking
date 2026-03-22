@@ -1,4 +1,4 @@
-import { createEl } from "./create-el.js";
+import Item from "./item.js";
 
 const displayMovements = (movements) => {
   movements.map((mov, index) => {
@@ -11,10 +11,10 @@ const displayMovements = (movements) => {
     };
 
     // Create item element
-    const item = createEl(movement);
+    const item = Item(movement);
 
     // Display in HTML
-    document.querySelector("#movements").appendChild(item);
+    document.querySelector("#movements").insertAdjacentElement("afterbegin", item);
   });
 };
 

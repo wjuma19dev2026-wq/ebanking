@@ -6,6 +6,7 @@
  * @property {number[]} movements
  * @property {number} interestRate
  * @property {number} pin
+ * @property {string} [username]
  */
 
 /** @type {User[]}  */

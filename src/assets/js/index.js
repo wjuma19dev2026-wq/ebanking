@@ -2,21 +2,28 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/styles.css"; // tus estilos personalizados
 
-import { movements } from "./storage.js";
-import displayMovements from "./display-movements.js";
+import displayMovements from "./display.js";
+
 import { users } from "./user.js";
+import { formatCurrency } from "./currency.js";
+import { generarUsernames } from "./helpers.js";
 
-const movementUSDfor = [];
-const rate = 1.1;
-for (const mov of movements) movementUSDfor.push(mov);
+const user = users[1];
+const movements = user.movements;
 
-// Display movements
-displayMovements(users[1].movements);
-document.querySelector("#balance").textContent =
-  "DOP " + users[1].movements.reduce((acc, mov) => acc + mov, 0).toFixed(2);
+displayMovements(movements);
 
-const movementsDescription = movementUSDfor.map((mov, i, arr) => {
-  return `Movement ${i + 1}: You ${mov >= 0 ? "deposit" : "withdrew"} ${Math.abs(mov)}`;
-});
+document.querySelector("#balance").textContent = formatCurrency(
+  movements.reduce((acc, mov) => acc + mov, 0),
+);
 
-console.log(movementsDescription);
+const usersWithUsernames = generarUsernames(users);
+
+const deposits = movements.filter((mov) => mov > 0);
+const depositsFor = [];
+for (const d of deposits) {
+  if (d > 0) depositsFor.push(d);
+}
+const withdrews = movements.filter((mov) => mov < 0);
+console.log(depositsFor);
+console.log(withdrews);

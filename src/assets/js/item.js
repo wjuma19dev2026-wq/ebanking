@@ -1,4 +1,4 @@
-export const createEl = ({ idx, type, amount, timestamp, color }) => {
+const Item = ({ idx, type, amount, timestamp, color }) => {
   const itemEl = document.createElement("li");
   const badgeEl = document.createElement("span");
   const timestampEl = document.createElement("span");
@@ -20,3 +20,5 @@ export const createEl = ({ idx, type, amount, timestamp, color }) => {
 
   return itemEl;
 };
+
+export default Item;
