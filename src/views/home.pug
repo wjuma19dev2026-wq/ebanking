@@ -11,11 +11,11 @@ block content
 			.col-6
 				div(class="card text-bg-light")
 					.card-body
-						ul.list-group.list-group-flush
-							+movement({
-								qty: 2,
-								type: 'deposit'
-							}, '3 days ago', 4000)
+						ul.list-group.list-group-flush#movements
+							//- +movement({
+							//- 	qty: 2,
+							//- 	type: 'deposit'
+							//- }, '3 days ago', 4000)
 			.col-6
 				.row
 					+actions({

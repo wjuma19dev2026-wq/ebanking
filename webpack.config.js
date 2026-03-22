@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,10 +38,12 @@ export default {
     new HtmlWebpackPlugin({
       template: "./src/views/home.pug",
       minify: {
+        minifyCSS: true,
         removeComments: true,
         collapseWhitespace: true,
       },
     }),
+    // new BundleAnalyzerPlugin(),
   ],
   devServer: {
     static: {
@@ -50,5 +53,10 @@ export default {
     port: 3000,
     open: true, // abre el navegador automáticamente
     watchFiles: ["src/**/*.pug", "src/**/*.css"],
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 };
