@@ -40,10 +40,22 @@ const label_sum_in = document.querySelector("#label-sum-in");
 const label_sum_out = document.querySelector("#label-sum-out");
 const label_sum_int = document.querySelector("#label-sum-int");
 
-// *************************LOGIN**********************************************************
-let current_account = users[0];
+// These variables are set when logging in
+let current_account = users[6];
 const users_with_username = generarUsernames(users);
 
+// This function refreshes and reprints the container of the movements
+const refresh_movements = function (acc) {
+  clearElement(movements_wrapper);
+  // Display Movements
+  displayMovements(acc.movements);
+  // Display Balance
+  display_balance();
+  // Display Summary
+  display_summary();
+};
+
+// *********************LOGIN*************************************************************
 const onSubmit = (ev) => {
   ev.preventDefault();
   const data = new FormData(ev.target);
@@ -68,22 +80,45 @@ const onSubmit = (ev) => {
   ev.target.reset();
   // Display UI and Message
   label_welcome.innerHTML = `<span class="text-secondary">Welcome back,</span> <span class="text-muted fw-bold">${user.owner.split(" ")[0]}</span>`;
-  clearElement(movements_wrapper);
-  // Display Movements
-  displayMovements(current_account.movements);
-  // Display Balance
-  display_balance();
-  // Display Summary
-  display_summary();
+  refresh_movements(current_account);
 };
 login_form.addEventListener("submit", onSubmit);
 // ****************************************************************************************
 
 // ***********************TRANSFER MONEY***************************************************
-btn_transfer.addEventListener("click", function () {
-  console.log("Transfiriendo");
-});
+const transfer_fn = function (ev) {
+  const transferToAccount = transfer_to.value;
+  const transferAmount = transfer_amount.value;
+  const receiverAccount = users_with_username.find(
+    (account) => account.username === transferToAccount,
+  );
 
+  if (!receiverAccount) {
+    console.log("Result: User does not found!.");
+    return false;
+  }
+
+  if (transferAmount <= 0) {
+    console.log("Result: Invalid amount, please enter a valid value!.");
+    return false;
+  }
+
+  if (current_account.balance < transferAmount) {
+    console.log("Result: you have no available balance!.");
+    return false;
+  }
+
+  if (receiverAccount?.username !== current_account.username) {
+    current_account?.movements.push(-transferAmount);
+    receiverAccount?.movements.push(Number(transferAmount));
+
+    console.log({ current_account, receiverAccount });
+    refresh_movements(current_account);
+  } else {
+    console.log("Result: Invalid account, enter a valid account");
+  }
+};
+btn_transfer.addEventListener("click", transfer_fn);
 // ***************************************************************************************
 
 displayMovements(current_account.movements);

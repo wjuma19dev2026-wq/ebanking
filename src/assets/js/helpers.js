@@ -42,10 +42,10 @@ export const createUsername = (acc) => {
 };
 
 export const calcPrintBalance = (account) => {
-  const balance = account.movements.reduce((acc, mov) => {
+  account.balance = account.movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
-  return formatCurrency(balance);
+  return formatCurrency(account.balance);
 };
 
 /** @type {( account: User ) => { sum_income: string, sum_out: string, interest: string  }} */
