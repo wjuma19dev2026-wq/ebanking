@@ -6,7 +6,7 @@ include actions.pug
 block content
 	include ./current-balance.pug
 
-	main.container
+	main.container.mb-5
 		.row
 			.col-6
 				div(class="card text-bg-light")
@@ -23,7 +23,7 @@ block content
 						title: 'transfer money',
 						cajas: [
 							{ type: 'text', name: 'transfer-to', label: 'transferto', id: 'transfer-to', placeholder: 'Transfer to' },
-							{ type: 'numer', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
+							{ type: 'number', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
 						],
 						icon: 'arrow-right'
 					})
@@ -37,11 +37,30 @@ block content
 					})
 					+actions({
 						color: 'danger', 
-						title: 'cancel product',
+						title: 'close account',
 						cajas: [
-							{ type: 'number', name: 'loan-amount', label: 'amount', id: 'loan-amount', placeholder: 'Your loan amount' },
-							{ type: 'numer', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
+							{ type: 'number', name: 'loan-amount', label: 'confirm user', id: 'loan-amount', placeholder: 'Username' },
+							{ type: 'numer', name: 'transfer-amount', label: 'confirm pin', id: 'transfer-amount', placeholder: 'Pin' }
 						],
 						icon: 'arrow-right'
 					})
-					
+		.row
+			.col-8.mt-5
+				.card.border-0.text-bg-light
+					.card-body.d-flex.justify-content-between.align-items-center.mx-3
+						span
+							|	In&nbsp;
+							span.text-success.fs-2#label-sum-in 0.000
+						span
+							| Out&nbsp;
+							span.text-danger.fs-2#label-sum-out 0.000
+						span
+							| Interest&nbsp;
+							span.text-success.fs-2.text-decoration-underline#label-sum-int 1.1
+						div.d-flex.flex-column.justify-content-center.align-items-center
+							i.bi.bi-arrow-down.d-flex
+							|	Sort
+			.col-4.mt-5#logged-out-text
+				p.fw-lighter.text-muted You will logged out in&nbsp;
+					span.fw-bold 5:00
+

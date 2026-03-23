@@ -1,10 +1,16 @@
+import { formatCurrency } from "./currency.js";
 import Item from "./item.js";
 
 const displayMovements = (movements) => {
-  movements.map((mov, index) => {
+  // Filtrar orden: Desc
+  const movFiltered = [...movements].sort((a, b) => {
+    return Math.abs(a) - Math.abs(b);
+  });
+
+  movFiltered.map((mov, index) => {
     const movement = {
       idx: index + 1,
-      amount: Math.abs(mov).toFixed(),
+      amount: formatCurrency(Math.abs(mov), "EUR", "es-ES"),
       timestamp: "3 days ago",
       type: mov >= 0 ? "deposit" : "withdrew",
       color: mov >= 0 ? "success" : "danger",
@@ -14,7 +20,9 @@ const displayMovements = (movements) => {
     const item = Item(movement);
 
     // Display in HTML
-    document.querySelector("#movements").insertAdjacentElement("afterbegin", item);
+    document
+      .querySelector("#movements")
+      .insertAdjacentElement("afterbegin", item);
   });
 };
 

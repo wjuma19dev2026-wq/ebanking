@@ -1,3 +1,16 @@
+@font-face {
+	font-family: "Hi Melody";
+	src: url("../fonts/Hi_Melody/HiMelody-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+body {
+	font-family: "Hi Melody";
+	font-size: 1.6rem;
+}
+
 #bank__current-balance {
 	height: 200px;
 	display: flex;
@@ -10,12 +23,16 @@
 	justify-content: center;
 }
 .current-balance__amount .balance {
-	font-size: 2.8rem;
+	font-size: 4rem;
 	font-weight: 700;
 }
 
 button {
 	width: 100px;
+}
+
+#loan-amount.form-control {
+	max-width: 100px !important;
 }
 
 #action-box {
@@ -24,4 +41,16 @@ button {
 
 #action-box:nth-of-type(1) {
 	margin-top: 0;
+}
+
+#logged-out-text {
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+}
+
+/*Btn*/
+#action-box button {
+	width: auto;
+	height: 35px;
 }

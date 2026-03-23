@@ -12,7 +12,7 @@ const Item = ({ idx, type, amount, timestamp, color }) => {
   badgeEl.innerHTML = `${idx} ${type}`;
   timestampEl.textContent = timestamp;
   amountEl.classList.add("fw-bold");
-  amountEl.textContent = `DOP ${amount}`;
+  amountEl.textContent = `${amount}`;
 
   itemEl.appendChild(badgeEl);
   itemEl.appendChild(timestampEl);
