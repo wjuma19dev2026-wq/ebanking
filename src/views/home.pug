@@ -4,20 +4,20 @@ include actions.pug
 
 
 block content
-	include ./current-balance.pug
-
-	main.container.mb-5
-		.row
-			.col-6
-				div(class="card text-bg-light")
-					.card-body
-						ul.list-group.list-group-flush#movements
-							//- +movement({
-							//- 	qty: 2,
-							//- 	type: 'deposit'
-							//- }, '3 days ago', 4000)
-			.col-6
-				.row
+	#wrapper(style="opacity: 0; transition: opacity 0.5s ease;")
+		include ./current-balance.pug
+		main.container.mb-5
+			.row
+				.col-6
+					div(class="card text-bg-light")
+						.card-body
+							ul.list-group.list-group-flush#movements
+								//- +movement({
+								//- 	qty: 2,
+								//- 	type: 'deposit'
+								//- }, '3 days ago', 4000)
+				.col-6
+					.row
 					+actions({
 						color: 'warning', 
 						title: 'transfer money',
@@ -44,23 +44,23 @@ block content
 						],
 						icon: 'arrow-right'
 					})
-		.row
-			.col-8.mt-5
-				.card.border-0.text-bg-light
-					.card-body.d-flex.justify-content-between.align-items-center.mx-3
-						span
-							|	In&nbsp;
-							span.text-success.fs-2#label-sum-in 0.000
-						span
-							| Out&nbsp;
-							span.text-danger.fs-2#label-sum-out 0.000
-						span
-							| Interest&nbsp;
-							span.text-success.fs-2.text-decoration-underline#label-sum-int 1.1
-						div.d-flex.flex-column.justify-content-center.align-items-center
-							i.bi.bi-arrow-down.d-flex
-							|	Sort
-			.col-4.mt-5#logged-out-text
-				p.fw-lighter.text-muted You will logged out in&nbsp;
+			.row
+				.col-8.mt-5
+					.card.border-0.text-bg-light
+						.card-body.d-flex.justify-content-between.align-items-center.mx-3
+							span
+								|	In&nbsp;
+								span.text-success.fs-2#label-sum-in 0.000
+							span
+								| Out&nbsp;
+								span.text-danger.fs-2#label-sum-out 0.000
+							span
+								| Interest&nbsp;
+								span.text-success.fs-2.text-decoration-underline#label-sum-int 1.1
+							div.d-flex.flex-column.justify-content-center.align-items-center
+								i.bi.bi-arrow-down.d-flex
+								|	Sort
+				.col-4.mt-5#logged-out-text
+					p.fw-lighter.text-muted You will logged out in&nbsp;
 					span.fw-bold 5:00
 

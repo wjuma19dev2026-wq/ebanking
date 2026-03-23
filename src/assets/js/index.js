@@ -6,6 +6,21 @@ import displayMovements from "./display.js";
 import { users } from "./user.js";
 import { calcPrintBalance, calSumInBalance } from "./helpers.js";
 
+window.addEventListener("load", () => {
+  document.querySelector("#wrapper").style.opacity = 1;
+  const loader = document.getElementById("loader");
+
+  // Añadimos la clase que lo oculta con transición
+  loader.classList.add("loader-hidden");
+
+  // Opcional: eliminarlo del DOM después de la transición para ahorrar recursos
+  loader.addEventListener("transitionend", function () {
+    if (loader.parentNode) {
+      loader.parentNode.removeChild(loader);
+    }
+  });
+});
+
 const label_balance = document.querySelector("#label-balance");
 const label_sum_in = document.querySelector("#label-sum-in");
 const label_sum_out = document.querySelector("#label-sum-out");
