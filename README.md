@@ -24,8 +24,9 @@ Una aplicación web de gestión bancaria moderna y minimalista que permite a los
 Sigue estos pasos para configurar el proyecto localmente:
 
 1. **Clona el repositorio:**
+
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/wjuma19dev2026-wq/ebanking.git
    cd ebanking
    ```
 
@@ -37,14 +38,19 @@ Sigue estos pasos para configurar el proyecto localmente:
 ## 💻 Uso
 
 ### Modo Desarrollo
+
 Para ejecutar la aplicación con recarga en vivo (hot reload):
+
 ```bash
 npm run dev
 ```
+
 La aplicación estará disponible en `http://localhost:8080` (o el puerto que asigne Webpack).
 
 ### Construcción para Producción
+
 Para generar los archivos optimizados en la carpeta `dist`:
+
 ```bash
 npm run build
 ```
@@ -66,4 +72,5 @@ src/
 El proyecto utiliza una arquitectura modular basada en módulos de JavaScript para separar la lógica de visualización (`display.js`), los datos de usuario (`user.js`) y las funciones auxiliares de cálculo (`helpers.js`).
 
 ---
+
 Desarrollado con ❤️ para el curso de JavaScript en 2026.
