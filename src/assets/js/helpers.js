@@ -10,6 +10,8 @@
  */
 
 import { formatCurrency } from "./currency.js";
+import displayMovements from "./display.js";
+import { display_balance, display_summary } from "./index.js";
 
 export const generarUsernames = (accs) => {
   return accs.map((acc) => {
@@ -90,4 +92,14 @@ export const clearElement = (element) => {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
+};
+
+export const refreshMovements = (acc) => {
+  clearElement(document.querySelector("#movements"));
+  // Display Movements
+  displayMovements(acc.movements);
+  // Display Balance
+  display_balance();
+  // Display Summary
+  display_summary();
 };

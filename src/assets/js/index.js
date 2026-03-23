@@ -7,8 +7,8 @@ import { users } from "./user.js";
 import {
   calcPrintBalance,
   calSumInBalance,
-  clearElement,
   generarUsernames,
+  refreshMovements,
 } from "./helpers.js";
 
 window.addEventListener("load", () => {
@@ -26,15 +26,24 @@ window.addEventListener("load", () => {
   });
 });
 
-const movements_wrapper = document.querySelector("#movements");
 const login_form = document.querySelector("#login-form");
-const label_welcome = document.querySelector("#label-welcome");
 
 // Transfer
 const transfer_to = document.querySelector("#transfer-to");
 const transfer_amount = document.querySelector("#transfer-amount");
 const btn_transfer = document.querySelector("#btn-transfer");
 
+// Loan request
+const loan_amount = document.querySelector("#loan-amount");
+const btn_loan = document.querySelector("#btn-loan");
+
+// Delete account
+const deleteAccount = document.querySelector("#delete-account");
+const deleteAccountPin = document.querySelector("#delete-account-pin");
+const btn_delete = document.querySelector("#btn-delete");
+
+// Account settings
+const label_welcome = document.querySelector("#label-welcome");
 const label_balance = document.querySelector("#label-balance");
 const label_sum_in = document.querySelector("#label-sum-in");
 const label_sum_out = document.querySelector("#label-sum-out");
@@ -44,19 +53,8 @@ const label_sum_int = document.querySelector("#label-sum-int");
 let current_account = users[6];
 const users_with_username = generarUsernames(users);
 
-// This function refreshes and reprints the container of the movements
-const refresh_movements = function (acc) {
-  clearElement(movements_wrapper);
-  // Display Movements
-  displayMovements(acc.movements);
-  // Display Balance
-  display_balance();
-  // Display Summary
-  display_summary();
-};
-
 // *********************LOGIN*************************************************************
-const onSubmit = (ev) => {
+const onFormSubmit = (ev) => {
   ev.preventDefault();
   const data = new FormData(ev.target);
   const values = Object.fromEntries(data.entries());
@@ -80,13 +78,13 @@ const onSubmit = (ev) => {
   ev.target.reset();
   // Display UI and Message
   label_welcome.innerHTML = `<span class="text-secondary">Welcome back,</span> <span class="text-muted fw-bold">${user.owner.split(" ")[0]}</span>`;
-  refresh_movements(current_account);
+  refreshMovements(current_account);
 };
-login_form.addEventListener("submit", onSubmit);
+login_form.addEventListener("submit", onFormSubmit);
 // ****************************************************************************************
 
 // ***********************TRANSFER MONEY***************************************************
-const transfer_fn = function (ev) {
+const onTransferSubmit = function (ev) {
   const transferToAccount = transfer_to.value;
   const transferAmount = transfer_amount.value;
   const receiverAccount = users_with_username.find(
@@ -111,14 +109,19 @@ const transfer_fn = function (ev) {
   if (receiverAccount?.username !== current_account.username) {
     current_account?.movements.push(-transferAmount);
     receiverAccount?.movements.push(Number(transferAmount));
-
-    console.log({ current_account, receiverAccount });
-    refresh_movements(current_account);
+    refreshMovements(current_account);
   } else {
     console.log("Result: Invalid account, enter a valid account");
   }
 };
-btn_transfer.addEventListener("click", transfer_fn);
+btn_transfer.addEventListener("click", onTransferSubmit);
+// ***************************************************************************************
+
+// **********************DELETE ACCOUNT***************************************************
+const onDeleteSubmit = function () {
+  console.log("Eliminando account");
+};
+btn_delete.addEventListener("click", onDeleteSubmit);
 // ***************************************************************************************
 
 displayMovements(current_account.movements);
@@ -127,7 +130,7 @@ displayMovements(current_account.movements);
  * Funcion que imprime el balance en pantalla
  * @type { () => void } No devuelve nada
  */
-function display_balance() {
+export function display_balance() {
   label_balance.textContent = calcPrintBalance(current_account);
 }
 display_balance();
@@ -136,7 +139,7 @@ display_balance();
  * Funcion que imprime en pantalla el income, out e interest.
  * @type {Function} void No devuelve nada
  */
-function display_summary() {
+export function display_summary() {
   const { sum_income, sum_out, interest } = calSumInBalance(current_account);
   label_sum_in.textContent = sum_income;
   label_sum_out.textContent = sum_out;
