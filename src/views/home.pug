@@ -25,7 +25,8 @@ block content
 							{ type: 'text', name: 'transfer-to', label: 'transferto', id: 'transfer-to', placeholder: 'Transfer to' },
 							{ type: 'number', name: 'transfer-amount', label: 'amount', id: 'transfer-amount' }
 						],
-						icon: 'arrow-right'
+						icon: 'arrow-right',
+						btn: 'btn-transfer'
 					})
 					+actions({
 						color: 'success', 
@@ -33,7 +34,8 @@ block content
 						cajas: [
 							{ type: 'number', name: 'loan-amount', label: 'amount', id: 'loan-amount', placeholder: 'Your loan amount' }
 						],
-						icon: 'arrow-right'
+						icon: 'arrow-right',
+						btn: 'btn-loan'
 					})
 					+actions({
 						color: 'danger', 
@@ -42,7 +44,8 @@ block content
 							{ type: 'number', name: 'loan-amount', label: 'confirm user', id: 'loan-amount', placeholder: 'Username' },
 							{ type: 'numer', name: 'transfer-amount', label: 'confirm pin', id: 'transfer-amount', placeholder: 'Pin' }
 						],
-						icon: 'arrow-right'
+						icon: 'arrow-right',
+						btn: 'btn-close-account'
 					})
 			.row
 				.col-8.mt-5

@@ -41,8 +41,8 @@ export const createUsername = (acc) => {
   return acc;
 };
 
-export const calcPrintBalance = (movements) => {
-  const balance = movements.reduce((acc, mov) => {
+export const calcPrintBalance = (account) => {
+  const balance = account.movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
   return formatCurrency(balance);

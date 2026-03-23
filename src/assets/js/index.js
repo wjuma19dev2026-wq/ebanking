@@ -29,14 +29,18 @@ window.addEventListener("load", () => {
 const movements_wrapper = document.querySelector("#movements");
 const login_form = document.querySelector("#login-form");
 const label_welcome = document.querySelector("#label-welcome");
+
+// Transfer
+const transfer_to = document.querySelector("#transfer-to");
+const transfer_amount = document.querySelector("#transfer-amount");
+const btn_transfer = document.querySelector("#btn-transfer");
+
 const label_balance = document.querySelector("#label-balance");
 const label_sum_in = document.querySelector("#label-sum-in");
 const label_sum_out = document.querySelector("#label-sum-out");
 const label_sum_int = document.querySelector("#label-sum-int");
 
-/*******************************************************************
- * LOGIN ***********************************************************
- ******************************************************************/
+// *************************LOGIN**********************************************************
 let current_account = users[0];
 const users_with_username = generarUsernames(users);
 
@@ -49,13 +53,13 @@ const onSubmit = (ev) => {
   const user = users_with_username.find((user) => user.username === username);
 
   if (!user) {
-    console.log("User not exist.");
-    return;
+    console.log("Result: User does not exist.");
+    return false;
   }
 
   if (user?.pin !== Number(pin)) {
-    console.log("Invalid credentials.");
-    return;
+    console.log("Result: Invalid credentials.");
+    return false;
   }
 
   // Asignar el usuario activo
@@ -73,7 +77,14 @@ const onSubmit = (ev) => {
   display_summary();
 };
 login_form.addEventListener("submit", onSubmit);
-/******************************************************************/
+// ****************************************************************************************
+
+// ***********************TRANSFER MONEY***************************************************
+btn_transfer.addEventListener("click", function () {
+  console.log("Transfiriendo");
+});
+
+// ***************************************************************************************
 
 displayMovements(current_account.movements);
 
@@ -82,7 +93,7 @@ displayMovements(current_account.movements);
  * @type { () => void } No devuelve nada
  */
 function display_balance() {
-  label_balance.textContent = calcPrintBalance(current_account.movements);
+  label_balance.textContent = calcPrintBalance(current_account);
 }
 display_balance();
 
