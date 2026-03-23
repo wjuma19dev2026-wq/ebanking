@@ -2,6 +2,10 @@
 
 Una aplicación web de gestión bancaria moderna y minimalista que permite a los usuarios visualizar sus movimientos financieros, saldos y resúmenes de cuenta. Este proyecto forma parte de un curso avanzado de JavaScript.
 
+## 📸 Vista Previa
+
+![Vista de la aplicación](./src/assets/img/app-screen.png)
+
 ## 🚀 Características
 
 - **Visualización de Movimientos:** Lista detallada de depósitos y retiros.
@@ -62,6 +66,7 @@ src/
 ├── assets/
 │   ├── css/        # Estilos personalizados
 │   ├── fonts/      # Fuentes locales
+│   ├── img/        # Imágenes del proyecto
 │   └── js/         # Lógica de la aplicación (módulos ES6)
 ├── views/          # Componentes de la interfaz (Pug)
 └── layout.pug      # Estructura base del HTML
