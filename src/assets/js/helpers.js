@@ -48,24 +48,28 @@ export const calcPrintBalance = (movements) => {
   return formatCurrency(balance);
 };
 
-/** @type {( movements: number[] ) => { sum_income: string, sum_out: string, interest: string  }} */
-export const calSumInBalance = (movements) => {
+/** @type {( account: User ) => { sum_income: string, sum_out: string, interest: string  }} */
+export const calSumInBalance = (account) => {
   const sum_income = formatCurrency(
-    movements.filter((mov) => mov >= 0).reduce((acc, mov) => acc + mov, 0),
+    account.movements
+      .filter((mov) => mov >= 0)
+      .reduce((acc, mov) => acc + mov, 0),
     "EUR",
     "es-ES",
   );
   const sum_out = formatCurrency(
     Math.abs(
-      movements.filter((mov) => mov < 0).reduce((acc, mov) => acc + mov, 0),
+      account.movements
+        .filter((mov) => mov < 0)
+        .reduce((acc, mov) => acc + mov, 0),
     ),
     "EUR",
     "es-ES",
   );
   const interest = formatCurrency(
-    movements
+    account.movements
       .filter((mov) => mov >= 0)
-      .map((deposit) => (deposit * 1.2) / 100)
+      .map((deposit) => (deposit * account.interestRate) / 100)
       .filter((int, i, arr) => {
         // console.log(int);
         // Solo paga interes a depositos mayores a 1
@@ -80,4 +84,10 @@ export const calSumInBalance = (movements) => {
     sum_out,
     interest,
   };
+};
+
+export const clearElement = (element) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 };

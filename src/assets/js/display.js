@@ -1,7 +1,8 @@
 import { formatCurrency } from "./currency.js";
 import Item from "./item.js";
+const movements_wrapper = document.querySelector("#movements");
 
-const displayMovements = (movements) => {
+const displayMovements = (movements = []) => {
   // Filtrar orden: Desc
   const movFiltered = [...movements].sort((a, b) => {
     return Math.abs(a) - Math.abs(b);
@@ -20,9 +21,7 @@ const displayMovements = (movements) => {
     const item = Item(movement);
 
     // Display in HTML
-    document
-      .querySelector("#movements")
-      .insertAdjacentElement("afterbegin", item);
+    movements_wrapper.insertAdjacentElement("afterbegin", item);
   });
 };
 

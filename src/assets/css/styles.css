@@ -11,6 +11,32 @@ body {
 	font-size: 1.6rem;
 }
 
+#card-movements {
+	height: 500px;
+	min-height: auto;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+#login-form input {
+	border-radius: 20px;
+	max-width: 100px;
+	text-align: center;
+	font-size: 1.6rem;
+	line-height: 1.1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 5px;
+}
+
+#login-form input:active,
+#login-form input:focus {
+	box-shadow: none;
+	border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
 #bank__current-balance {
 	height: 200px;
 	display: flex;

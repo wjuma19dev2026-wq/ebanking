@@ -13,7 +13,10 @@
 export const users = [
   {
     owner: "Jonas Schmedtmann",
-    movements: [200, 450, -450, 3000, -650, -130, 70],
+    movements: [
+      1563, 600, -900, -300, -1000, 5600, 800, 200, 450, -450, 3000, -650, -130,
+      70,
+    ],
     interestRate: 1.2,
     pin: 1111,
   },

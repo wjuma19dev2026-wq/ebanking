@@ -2,10 +2,13 @@ header
   hgroup
     nav.navbar.bg-body-tertiary
       .container
-        span.navbar-brand.mb-0.h1.fs-2 Login in to get started
-        ul.navbar-nav.flex-row.gap-2.align-items-center
-          button.btn.btn-light.fs-4.rounded.rounded-5 User
-          button.btn.btn-light.fs-4.rounded.rounded-5 Pin
-          li.nav-item
-            a.nav-link(href="#")
-              i.bi.bi-arrow-right
+        span.navbar-brand.mb-0.h1.fs-2#label-welcome Login in to get started
+        form.d-flex.gap-2#login-form
+          div
+            input(type="text" name="username" id="username" class="form-control" placeholder="USER")
+          div
+            input(type="number" name="pin" id="pin" class="form-control" placeholder="PIN")
+          button(type="submit" class="btn btn-light w-auto")
+            i.bi.bi-arrow-right.d-flex
+
+

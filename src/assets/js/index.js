@@ -4,7 +4,12 @@ import "../css/styles.css"; // tus estilos personalizados
 
 import displayMovements from "./display.js";
 import { users } from "./user.js";
-import { calcPrintBalance, calSumInBalance } from "./helpers.js";
+import {
+  calcPrintBalance,
+  calSumInBalance,
+  clearElement,
+  generarUsernames,
+} from "./helpers.js";
 
 window.addEventListener("load", () => {
   document.querySelector("#wrapper").style.opacity = 1;
@@ -21,31 +26,63 @@ window.addEventListener("load", () => {
   });
 });
 
+const movements_wrapper = document.querySelector("#movements");
+const login_form = document.querySelector("#login-form");
+const label_welcome = document.querySelector("#label-welcome");
 const label_balance = document.querySelector("#label-balance");
 const label_sum_in = document.querySelector("#label-sum-in");
 const label_sum_out = document.querySelector("#label-sum-out");
 const label_sum_int = document.querySelector("#label-sum-int");
 
-const user = users[0];
-const movements = user.movements;
+/*******************************************************************
+ * LOGIN ***********************************************************
+ ******************************************************************/
+let current_account = users[0];
+const users_with_username = generarUsernames(users);
 
-/**
- * Muestra los movimientos del usuario dentro de una lista
- */
-displayMovements(movements);
+const onSubmit = (ev) => {
+  ev.preventDefault();
+  const data = new FormData(ev.target);
+  const values = Object.fromEntries(data.entries());
+  const { username, pin } = values;
 
-const deposits = movements.filter((mov) => mov > 0);
-const depositsFor = [];
-for (const d of deposits) {
-  if (d > 0) depositsFor.push(d);
-}
+  const user = users_with_username.find((user) => user.username === username);
+
+  if (!user) {
+    console.log("User not exist.");
+    return;
+  }
+
+  if (user?.pin !== Number(pin)) {
+    console.log("Invalid credentials.");
+    return;
+  }
+
+  // Asignar el usuario activo
+  current_account = user;
+  // Limpiar formulario
+  ev.target.reset();
+  // Display UI and Message
+  label_welcome.innerHTML = `<span class="text-secondary">Welcome back,</span> <span class="text-muted fw-bold">${user.owner.split(" ")[0]}</span>`;
+  clearElement(movements_wrapper);
+  // Display Movements
+  displayMovements(current_account.movements);
+  // Display Balance
+  display_balance();
+  // Display Summary
+  display_summary();
+};
+login_form.addEventListener("submit", onSubmit);
+/******************************************************************/
+
+displayMovements(current_account.movements);
 
 /**
  * Funcion que imprime el balance en pantalla
  * @type { () => void } No devuelve nada
  */
 function display_balance() {
-  label_balance.textContent = calcPrintBalance(movements);
+  label_balance.textContent = calcPrintBalance(current_account.movements);
 }
 display_balance();
 
@@ -54,15 +91,9 @@ display_balance();
  * @type {Function} void No devuelve nada
  */
 function display_summary() {
-  const { sum_income, sum_out, interest } = calSumInBalance(movements);
+  const { sum_income, sum_out, interest } = calSumInBalance(current_account);
   label_sum_in.textContent = sum_income;
   label_sum_out.textContent = sum_out;
   label_sum_int.textContent = interest;
 }
 display_summary();
-
-const eurToUsd = 1.1;
-const totalEurToDollar = (mvs) =>
-  mvs.filter((mov) => mov > 0).reduce((acc, mov) => acc + mov * eurToUsd, 0);
-const balanceUSD = totalEurToDollar(movements);
-// console.log(balanceUSD);
