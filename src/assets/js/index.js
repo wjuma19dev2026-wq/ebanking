@@ -7,6 +7,7 @@ import { users } from "./user.js";
 import {
   calcPrintBalance,
   calSumInBalance,
+  clearElement,
   generarUsernames,
   refreshMovements,
 } from "./helpers.js";
@@ -175,6 +176,10 @@ const onLoanRequestSubmit = (ev) => {
 btn_loan.addEventListener("click", onLoanRequestSubmit);
 // ***************************************************************************************
 
+// **********************SORT MOVEMENTS***************************************************
+document.querySelector("#btn-sorted").addEventListener("click", function () {});
+// ***************************************************************************************
+
 displayMovements(current_account.movements);
 
 export function display_balance() {
@@ -189,3 +194,9 @@ export function display_summary() {
   label_sum_int.textContent = interest;
 }
 display_summary();
+
+console.log(
+  Object.groupBy(current_account.movements, (mov) =>
+    mov > 0 ? "depositos" : "retiros",
+  ),
+);

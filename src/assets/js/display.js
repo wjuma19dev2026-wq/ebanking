@@ -2,12 +2,7 @@ import { formatCurrency } from "./currency.js";
 import Item from "./item.js";
 const movements_wrapper = document.querySelector("#movements");
 
-const displayMovements = (movements = []) => {
-  // Filtrar orden: Desc
-  // const movFiltered = [...movements].sort((a, b) => {
-  //   return Math.abs(a) - Math.abs(b);
-  // });
-
+const displayMovements = (movements) => {
   movements.map((mov, index) => {
     const movement = {
       idx: index + 1,

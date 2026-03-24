@@ -12,10 +12,6 @@ block content
 					div(class="card text-bg-light" id="card-movements")
 						.card-body
 							ul.list-group.list-group-flush#movements
-								//- +movement({
-								//- 	qty: 2,
-								//- 	type: 'deposit'
-								//- }, '3 days ago', 4000)
 				.col-6
 					.row
 					+actions({
@@ -41,7 +37,7 @@ block content
 						color: 'danger', 
 						title: 'close account',
 						cajas: [
-							{ type: 'number', name: 'delete-account', label: 'confirm user', id: 'delete-account', placeholder: 'Username' },
+							{ type: 'text', name: 'delete-account', label: 'confirm user', id: 'delete-account', placeholder: 'Username' },
 							{ type: 'numer', name: 'delete-account-pin', label: 'confirm pin', id: 'delete-account-pin', placeholder: 'Pin' }
 						],
 						icon: 'arrow-right',
@@ -60,7 +56,7 @@ block content
 							span
 								| Interest&nbsp;
 								span.text-success.fs-2.text-decoration-underline#label-sum-int 1.1
-							div.d-flex.flex-column.justify-content-center.align-items-center
+							div.d-flex.flex-column.justify-content-center.align-items-center#btn-sorted(style="cursor: pointer;")
 								i.bi.bi-arrow-down.d-flex
 								|	Sort
 				.col-4.mt-5#logged-out-text
