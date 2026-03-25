@@ -15,7 +15,7 @@ const Item = ({ idx, type, amount, timestamp, color }) => {
   amountEl.textContent = `${amount}`;
 
   itemEl.appendChild(badgeEl);
-  itemEl.appendChild(timestampEl);
+  // itemEl.appendChild(timestampEl);
   itemEl.appendChild(amountEl);
 
   return itemEl;

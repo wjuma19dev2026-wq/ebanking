@@ -1,9 +1,12 @@
 import { formatCurrency } from "./currency.js";
+import { clearElement } from "./helpers.js";
 import Item from "./item.js";
 const movements_wrapper = document.querySelector("#movements");
 
-const displayMovements = (movements) => {
-  movements.map((mov, index) => {
+const displayMovements = (movements, sort = false) => {
+  const mov = [...movements].sort((a, b) => (sort ? a - b : movements));
+  clearElement(document.querySelector("#movements"));
+  mov.map((mov, index) => {
     const movement = {
       idx: index + 1,
       amount: formatCurrency(Math.abs(mov), "EUR", "es-ES"),

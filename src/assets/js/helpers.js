@@ -1,14 +1,3 @@
-// @ts-check
-
-/**
- * @typedef { Object } User
- * @property {string} owner
- * @property {number[]} movements
- * @property {number} interestRate
- * @property {number} pin
- * @property {string} [username]
- */
-
 import { formatCurrency } from "./currency.js";
 import displayMovements from "./display.js";
 import { display_balance, display_summary } from "./index.js";
@@ -72,7 +61,7 @@ export const calSumInBalance = (account) => {
     account.movements
       .filter((mov) => mov >= 0)
       .map((deposit) => (deposit * account.interestRate) / 100)
-      .filter((int, i, arr) => {
+      .filter((int) => {
         // console.log(int);
         // Solo paga interes a depositos mayores a 1
         return int >= 1;
@@ -95,11 +84,7 @@ export const clearElement = (element) => {
 };
 
 export const refreshMovements = (acc) => {
-  clearElement(document.querySelector("#movements"));
-  // Display Movements
   displayMovements(acc.movements);
-  // Display Balance
   display_balance();
-  // Display Summary
   display_summary();
 };
