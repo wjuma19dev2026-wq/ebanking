@@ -1,89 +1,86 @@
 // @ts-check
 
 /**
- * @typedef { Object } User
- * @property {string} owner
- * @property {number[]} movements
- * @property {number} interestRate
- * @property {number} pin
- * @property {string} [username]
+ * @typedef {Object} User
+ * @property {string} owner - Nombre del titular de la cuenta
+ * @property {number[]} movements - Lista de movimientos (positivos y negativos)
+ * @property {string[]} movementsDates - Fechas ISO de cada movimiento
+ * @property {number} interestRate - Tasa de interés en porcentaje
+ * @property {string} currency - Moneda de la cuenta (ej: "EUR", "USD")
+ * @property {string} locale - Configuración regional (ej: "pt-PT", "en-US")
+ * @property {number} pin - Código PIN de acceso
+ * @property {string} [username] - Alias opcional para el usuario
  */
 
 /** @type {User[]}  */
-export const users = [
+export const accounts = [
   {
     owner: "Jonas Schmedtmann",
-    movements: [
-      1563, 600, -900, -300, -1000, 5600, 800, 200, 450, -450, 3000, -650, -130,
-      70,
+    movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+    movementsDates: [
+      "2019-11-18T21:31:17.178Z",
+      "2019-12-23T07:42:02.383Z",
+      "2020-01-28T09:15:04.904Z",
+      "2020-04-01T10:17:24.185Z",
+      "2020-05-08T14:11:59.604Z",
+      "2020-07-26T17:01:17.194Z",
+      "2020-08-28T23:36:17.929Z",
+      "2020-09-01T10:51:36.790Z",
     ],
-    interestRate: 1.2,
+    interestRate: 1.2, // %
+    currency: "EUR",
+    locale: "pt-PT", // Portuguese (Portugal)
     pin: 1111,
   },
   {
-    owner: "Pedro Martinez",
-    movements: [5600, 6321, -569, -365, -896, 2000, 6000, -8900],
+    owner: "Jessica Davis",
+    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+    movementsDates: [
+      "2019-11-01T13:15:33.035Z",
+      "2019-11-30T09:48:16.867Z",
+      "2019-12-25T06:04:23.907Z",
+      "2020-01-25T14:18:46.235Z",
+      "2020-02-05T16:33:06.386Z",
+      "2020-04-10T14:43:26.374Z",
+      "2020-06-25T18:49:59.371Z",
+      "2020-07-26T12:01:20.894Z",
+    ],
     interestRate: 1.5,
+    currency: "USD",
+    locale: "en-US",
     pin: 2222,
   },
   {
-    owner: "Ana Garcia",
-    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    owner: "Steven Thomas Williams",
+    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    movementsDates: [
+      "2019-11-18T21:31:17.178Z",
+      "2019-12-23T07:42:02.383Z",
+      "2020-01-28T09:15:04.904Z",
+      "2020-04-01T10:17:24.185Z",
+      "2020-05-08T14:11:59.604Z",
+      "2020-07-26T17:01:17.194Z",
+      "2020-08-28T23:36:17.929Z",
+      "2020-09-01T10:51:36.790Z",
+    ],
     interestRate: 0.7,
+    currency: "GBP",
+    locale: "en-GB",
     pin: 3333,
   },
   {
-    owner: "Carlos Sanchez",
-    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-    interestRate: 1.1,
-    pin: 4444,
-  },
-  {
-    owner: "Maria Rodriguez",
-    movements: [1000, 2000, 3000, -500, -200, -100, 50, 20],
-    interestRate: 1.3,
-    pin: 5555,
-  },
-  {
-    owner: "Luisa Fernandez",
-    movements: [600, -200, 300, 400, 500, -150, 1200, -400],
-    interestRate: 0.9,
-    pin: 6666,
-  },
-  {
-    owner: "Jorge Lopez",
+    owner: "Sarah Smith",
     movements: [430, 1000, 700, 50, 90],
+    movementsDates: [
+      "2019-11-01T13:15:33.035Z",
+      "2019-11-30T09:48:16.867Z",
+      "2019-12-25T06:04:23.907Z",
+      "2020-01-25T14:18:46.235Z",
+      "2020-02-05T16:33:06.386Z",
+    ],
     interestRate: 1,
-    pin: 7777,
-  },
-  {
-    owner: "Elena Gomez",
-    movements: [2500, -400, -100, 8000, -2500, -430, 60],
-    interestRate: 1.4,
-    pin: 8888,
-  },
-  {
-    owner: "Roberto Diaz",
-    movements: [150, 200, 250, 300, -100, -50, 400, 500],
-    interestRate: 0.8,
-    pin: 9999,
-  },
-  {
-    owner: "Lucia Ruiz",
-    movements: [500, 600, 700, 800, 900, 1000, -2000],
-    interestRate: 1.2,
-    pin: 1010,
-  },
-  {
-    owner: "Miguel Torres",
-    movements: [1200, -200, 4500, -3000, 1500, -500, 200],
-    interestRate: 1.5,
-    pin: 2020,
-  },
-  {
-    owner: "Sofia Jimenez",
-    movements: [300, 400, 500, -200, 100, 600, 700, -1000],
-    interestRate: 0.6,
-    pin: 3030,
+    currency: "USD",
+    locale: "en-US",
+    pin: 4444,
   },
 ];

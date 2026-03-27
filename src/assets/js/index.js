@@ -3,7 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/styles.css"; // tus estilos personalizados
 
 import displayMovements from "./display.js";
-import { users } from "./user.js";
+import { accounts } from "./user.js";
 import {
   calcPrintBalance,
   calSumInBalance,
@@ -50,19 +50,19 @@ const label_sum_out = document.querySelector("#label-sum-out");
 const label_sum_int = document.querySelector("#label-sum-int");
 
 // These variables are set when logging in
-let accounts = [];
 let current_account = [];
+let users = [];
 
 // *********************LOGIN*************************************************************
 const onFormSubmit = (ev) => {
   ev.preventDefault();
 
-  accounts = generarUsernames(users);
+  users = generarUsernames(accounts);
   const data = new FormData(ev.target);
   const values = Object.fromEntries(data.entries());
   const { username, pin } = values;
 
-  current_account = accounts.find((user) => user.username === username);
+  current_account = users.find((user) => user.username === username);
 
   if (!current_account) {
     console.log("Result: User does not exist.");
@@ -87,8 +87,8 @@ login_form.addEventListener("submit", onFormSubmit);
 // ***********************TRANSFER MONEY***************************************************
 const onTransferSubmit = function () {
   const transferToAccount = transfer_to.value;
-  const transferAmount = transfer_amount.value;
-  const receiverAccount = accounts.find(
+  const transferAmount = Number(transfer_amount.value);
+  const receiverAccount = users.find(
     (account) => account.username === transferToAccount,
   );
 
@@ -121,7 +121,7 @@ btn_transfer.addEventListener("click", onTransferSubmit);
 // **********************DELETE ACCOUNT***************************************************
 const onDeleteSubmit = function () {
   const deleteAccountUsername = delete_account.value;
-  const accountToDelete = accounts.find(
+  const accountToDelete = users.find(
     (acc) => acc?.username === deleteAccountUsername,
   );
   if (!accountToDelete) {
@@ -142,8 +142,8 @@ const onDeleteSubmit = function () {
     (user) => user.username === accountToDelete.username,
   );
   if (movementToDeleteIndex >= 0) {
-    users.splice(movementToDeleteIndex, 1);
-    // TODO: accion despues de eliminar el usuario
+    accounts.splice(movementToDeleteIndex, 1);
+    // accion despues de eliminar el usuario
     label_welcome.textContent = "Login in to get started";
     document.querySelector("#wrapper").style.display = "none";
   }
@@ -158,9 +158,7 @@ const onLoanRequestSubmit = () => {
     amount > 0 &&
     current_account.movements.some((mov) => mov >= amount * 0.1)
   ) {
-    // TODO: Add loan movement
     current_account.movements.push(amount);
-    // TODO: Update UI
     refreshMovements(current_account);
   } else {
     console.log(
@@ -190,9 +188,3 @@ export function display_summary() {
   label_sum_out.textContent = sum_out;
   label_sum_int.textContent = interest;
 }
-
-// console.log(
-//   Object.groupBy(current_account.movements, (mov) =>
-//     mov > 0 ? "depositos" : "retiros",
-//   ),
-// );
