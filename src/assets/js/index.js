@@ -1,5 +1,6 @@
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "../css/bootstrap.min.css";
 import "../css/styles.css"; // tus estilos personalizados
 
 import displayMovements from "./display.js";
@@ -11,26 +12,9 @@ import {
   refreshMovements,
 } from "./helpers.js";
 
-window.addEventListener("load", () => {
-  document.querySelector("#wrapper").style.opacity = 1;
-  const loader = document.getElementById("loader");
-
-  // Añadimos la clase que lo oculta con transición
-  loader.classList.add("loader-hidden");
-
-  // Opcional: eliminarlo del DOM después de la transición para ahorrar recursos
-  loader.addEventListener("transitionend", function () {
-    if (loader.parentNode) {
-      loader.parentNode.removeChild(loader);
-    }
-  });
-});
-
 const login_form = document.querySelector("#login-form");
 
 // Transfer
-const transfer_to = document.querySelector("#transfer-to");
-const transfer_amount = document.querySelector("#transfer-amount");
 const btn_transfer = document.querySelector("#btn-transfer");
 
 // Loan request
@@ -50,8 +34,21 @@ const label_sum_out = document.querySelector("#label-sum-out");
 const label_sum_int = document.querySelector("#label-sum-int");
 
 // These variables are set when logging in
-let current_account = [];
-let users = [];
+let current_account = accounts[0];
+let users = generarUsernames(accounts);
+
+refreshMovements(current_account);
+display_welcome(current_account);
+
+/**
+ * DATE APP ZONE
+ */
+const FECHA = new Date();
+const FECHA_COMPLETA = new Intl.DateTimeFormat(current_account.locale).format(
+  FECHA,
+);
+
+document.querySelector("#label-date").textContent = FECHA_COMPLETA;
 
 // *********************LOGIN*************************************************************
 const onFormSubmit = (ev) => {
@@ -76,9 +73,7 @@ const onFormSubmit = (ev) => {
 
   ev.target.reset();
 
-  document.querySelector("#wrapper").style.display = "block";
   label_welcome.innerHTML = `<span class="text-secondary">Welcome back,</span> <span class="text-muted fw-bold">${current_account.owner.split(" ")[0]}</span>`;
-
   refreshMovements(current_account);
 };
 login_form.addEventListener("submit", onFormSubmit);
@@ -86,8 +81,10 @@ login_form.addEventListener("submit", onFormSubmit);
 
 // ***********************TRANSFER MONEY***************************************************
 const onTransferSubmit = function () {
-  const transferToAccount = transfer_to.value;
-  const transferAmount = Number(transfer_amount.value);
+  const transferToAccount = document.querySelector("#transfer-to").value;
+  const transferAmount = document.querySelector("#transfer-amount").value;
+
+  // Validaciones --------------------------------------------------------
   const receiverAccount = users.find(
     (account) => account.username === transferToAccount,
   );
@@ -107,13 +104,23 @@ const onTransferSubmit = function () {
     return false;
   }
 
-  if (receiverAccount?.username !== current_account.username) {
-    current_account?.movements.push(-transferAmount);
-    receiverAccount?.movements.push(Number(transferAmount));
-    refreshMovements(current_account);
-  } else {
+  if (receiverAccount.username === current_account.username) {
     console.log("Result: Invalid account, enter a valid account");
-  }
+    return;
+  } //- Fin de las validaciones ------------------------------------------
+
+  /**
+   * Agregar el monto de la trsnferencia a la respectiva cuenta
+   * Desde cuenta -Monto
+   * Hasta cuenta +Monto
+   */
+  current_account.movements.push(-transferAmount);
+  current_account.movementsDates.push(new Date());
+  receiverAccount.movements.push(Number(transferAmount));
+  receiverAccount.movementsDates.push(new Date());
+
+  // Refrescar pantalla para imprimir valores actualizados
+  refreshMovements(current_account);
 };
 btn_transfer.addEventListener("click", onTransferSubmit);
 // ***************************************************************************************
@@ -172,14 +179,17 @@ btn_loan.addEventListener("click", onLoanRequestSubmit);
 // **********************SORT MOVEMENTS***************************************************
 let sorted = true;
 document.querySelector("#btn-sorted").addEventListener("click", function () {
-  console.log("Movements displayed");
-  displayMovements(current_account.movements, sorted);
+  displayMovements(current_account, sorted);
   sorted = !sorted;
 });
 // ***************************************************************************************
 
 export function display_balance() {
   label_balance.textContent = calcPrintBalance(current_account);
+}
+
+export function display_welcome(acc) {
+  label_welcome.innerHTML = `<span class="text-secondary">Welcome back,</span> <span class="text-muted fw-bold">${acc.owner.split(" ")[0]}</span>`;
 }
 
 export function display_summary() {

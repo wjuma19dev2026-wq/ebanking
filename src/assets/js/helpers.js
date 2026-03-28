@@ -84,7 +84,30 @@ export const clearElement = (element) => {
 };
 
 export const refreshMovements = (acc) => {
-  displayMovements(acc.movements);
+  displayMovements(acc);
   display_balance();
   display_summary();
+};
+
+/**
+ * Formatear la hora recibida en minutos y segundos
+ * @param  { number } segundos Segundos debe de ser tipo numero
+ * @return { string }
+ */
+export const formatearHora = (segundos) => {
+  const min = Math.floor(segundos / 60)
+    .toString()
+    .padStart(2, "0");
+  const sec = (segundos % 60).toString().padStart(2, "0");
+  return `${min}:${sec}`;
+};
+
+export const formatearFecha = (fecha) => {
+  return new Intl.DateTimeFormat("es-ES", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(fecha));
 };
