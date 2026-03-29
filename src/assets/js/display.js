@@ -9,18 +9,21 @@ const displayMovements = (account, sorted = false) => {
 
   // Se crea un objeto para combinar el movimiento con la fecha.
   const combineMovementsDates = account.movements.map((movement, i) => {
-    return { movement, movementDate: account.movementsDates.at(i) };
+    return {
+      movement,
+      movementDate: account.movementsDates.at(i),
+    };
   });
 
   // Se sortea por orden, en este caso descendente.
   const mov = combineMovementsDates
     .slice()
-    .sort((a, b) => (sorted ? a.movement - b.movement : combineMovementsDates));
+    .sort((a, b) => (sorted ? b.movement - a.movement : combineMovementsDates));
 
   // Iterar el arreglo de movimientos
   mov.map((obj, index) => {
     const { movement, movementDate } = obj;
-    const fecha = formatearFecha(movementDate);
+    const fecha = formatearFecha(movementDate, account.locale);
 
     const movementObj = {
       idx: index + 1,

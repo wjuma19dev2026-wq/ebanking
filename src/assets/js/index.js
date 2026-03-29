@@ -1,4 +1,3 @@
-// import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/bootstrap.min.css";
 import "../css/styles.css"; // tus estilos personalizados
@@ -11,6 +10,8 @@ import {
   generarUsernames,
   refreshMovements,
 } from "./helpers.js";
+
+/** @typedef { import('./types.js').DateTimeOptions } DateOptions */
 
 const login_form = document.querySelector("#login-form");
 
@@ -44,9 +45,18 @@ display_welcome(current_account);
  * DATE APP ZONE
  */
 const FECHA = new Date();
-const FECHA_COMPLETA = new Intl.DateTimeFormat(current_account.locale).format(
-  FECHA,
-);
+const LOCALE = navigator.language;
+
+/** @type { DateOptions } OPTIONS */
+const OPTIONS = {
+  weekday: "short",
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  minute: "numeric",
+  second: "numeric",
+};
+const FECHA_COMPLETA = new Intl.DateTimeFormat(LOCALE, OPTIONS).format(FECHA);
 
 document.querySelector("#label-date").textContent = FECHA_COMPLETA;
 
@@ -166,6 +176,7 @@ const onLoanRequestSubmit = () => {
     current_account.movements.some((mov) => mov >= amount * 0.1)
   ) {
     current_account.movements.push(amount);
+    current_account.movementsDates.push(new Date());
     refreshMovements(current_account);
   } else {
     console.log(

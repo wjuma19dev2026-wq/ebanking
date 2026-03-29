@@ -102,9 +102,16 @@ export const formatearHora = (segundos) => {
   return `${min}:${sec}`;
 };
 
-export const formatearFecha = (fecha) => {
-  return new Intl.DateTimeFormat("es-ES", {
-    day: "numeric",
+const FORMAT_DAYS_PASSED = (dateNow, datePass) =>
+  Math.round(Math.abs(datePass - dateNow) / (1000 * 60 * 60 * 24));
+export const formatearFecha = (fecha, locale) => {
+  const days = FORMAT_DAYS_PASSED(new Date(), new Date(fecha));
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days <= 7) return "This week";
+
+  return new Intl.DateTimeFormat(locale, {
+    day: "2-digit",
     month: "short",
     year: "numeric",
     hour: "2-digit",
